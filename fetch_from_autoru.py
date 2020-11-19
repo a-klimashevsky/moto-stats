@@ -15,16 +15,18 @@ def fetch_from_autoru(mark):
             "category": "moto",
             "output_type": "list",
             "page": page,
-            "page_size": "100"
+            "page_size": "100",
         }
         token = uuid.uuid4().hex
         headers = {
             "Content-Type": "application/json",
             "x-csrf-token": token,
-            "Cookie": "_csrf_token=%s;" % token
+            "Cookie": "_csrf_token=%s;" % token,
         }
 
-        response = requests.post('https://auto.ru/-/ajax/desktop/listing/', json=bodyJson, headers=headers)
+        response = requests.post(
+            "https://auto.ru/-/ajax/desktop/listing/", json=bodyJson, headers=headers
+        )
 
         response_json = response.json()
 
@@ -37,7 +39,7 @@ def fetch_from_autoru(mark):
                 model=offerJson["vehicle_info"]["model_info"]["code"],
                 mark=offerJson["vehicle_info"]["mark_info"]["code"],
                 price=offerJson["price_info"]["USD"],
-                year=offerJson["documents"]["year"]
+                year=offerJson["documents"]["year"],
             )
             offers.append(offer)
 
